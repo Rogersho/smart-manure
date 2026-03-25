@@ -25,6 +25,9 @@ export const translations = {
     nitrogen: "Nitrogen (N)",
     phosphorus: "Phosphorus (P)",
     potassium: "Potassium (K)",
+    calcium: "Calcium (Ca)",
+    magnesium: "Magnesium (Mg)",
+    sulfur: "Sulfur (S)",
     reasoningEngine: "SYSTEM_REASONING_ENGINE",
     none: "None",
     landTypes: {
@@ -78,6 +81,9 @@ export const translations = {
     nitrogen: "Niyotrojen (N)",
     phosphorus: "Fosifore (P)",
     potassium: "Potasiyumu (K)",
+    calcium: "Kalsiyumu (Ca)",
+    magnesium: "Mayineziyumu (Mg)",
+    sulfur: "Sulifure (S)",
     reasoningEngine: "IMASHINI_ISESENGURA",
     none: "Nta n'imwe",
     landTypes: {

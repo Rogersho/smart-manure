@@ -269,7 +269,7 @@ export default function App() {
                   {/* Nutrient Gap Analysis */}
                   <div className="mb-8">
                     <h4 className="font-bold uppercase tracking-wider text-slate-400 mb-4 border-l-4 border-emerald-500 pl-3">{t.nutrientGap}</h4>
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                       {/* Nitrogen */}
                       <div>
                         <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
@@ -287,7 +287,7 @@ export default function App() {
                           <span className="text-emerald-400">{result.nutrientGap.p.toFixed(0)}%</span>
                         </div>
                         <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
-                          <div className="bg-emerald-500 h-full transition-all duration-1000 ease-out delay-100" style={{ width: `${result.nutrientGap.p}%` }}></div>
+                          <div className="bg-emerald-500 h-full transition-all duration-1000 ease-out delay-75" style={{ width: `${result.nutrientGap.p}%` }}></div>
                         </div>
                       </div>
                       {/* Potassium */}
@@ -297,7 +297,37 @@ export default function App() {
                           <span className="text-emerald-400">{result.nutrientGap.k.toFixed(0)}%</span>
                         </div>
                         <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
-                          <div className="bg-emerald-500 h-full transition-all duration-1000 ease-out delay-200" style={{ width: `${result.nutrientGap.k}%` }}></div>
+                          <div className="bg-emerald-500 h-full transition-all duration-1000 ease-out delay-150" style={{ width: `${result.nutrientGap.k}%` }}></div>
+                        </div>
+                      </div>
+                      {/* Calcium */}
+                      <div>
+                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
+                          <span>{t.calcium}</span>
+                          <span className="text-emerald-400">{result.nutrientGap.ca.toFixed(0)}%</span>
+                        </div>
+                        <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
+                          <div className="bg-blue-500 h-full transition-all duration-1000 ease-out delay-225" style={{ width: `${result.nutrientGap.ca}%` }}></div>
+                        </div>
+                      </div>
+                      {/* Magnesium */}
+                      <div>
+                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
+                          <span>{t.magnesium}</span>
+                          <span className="text-emerald-400">{result.nutrientGap.mg.toFixed(0)}%</span>
+                        </div>
+                        <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
+                          <div className="bg-blue-500 h-full transition-all duration-1000 ease-out delay-300" style={{ width: `${result.nutrientGap.mg}%` }}></div>
+                        </div>
+                      </div>
+                      {/* Sulfur */}
+                      <div>
+                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
+                          <span>{t.sulfur}</span>
+                          <span className="text-emerald-400">{result.nutrientGap.s.toFixed(0)}%</span>
+                        </div>
+                        <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
+                          <div className="bg-blue-500 h-full transition-all duration-1000 ease-out delay-375" style={{ width: `${result.nutrientGap.s}%` }}></div>
                         </div>
                       </div>
                     </div>

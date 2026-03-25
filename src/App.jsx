@@ -58,7 +58,7 @@ export default function App() {
               <Factory size={32} />
             </div>
             <div>
-              <h1 className="text-3xl font-black tracking-tight text-white uppercase">AgriPulse AI</h1>
+              <h1 className="text-3xl font-black tracking-tight text-white uppercase">Smart Organic Rwanda</h1>
               <h2 className="text-emerald-400 font-bold tracking-widest text-sm uppercase">Smart-Mix Bio-fertilizer</h2>
             </div>
           </div>
@@ -99,8 +99,8 @@ export default function App() {
                     key={land.id}
                     onClick={() => setSelectedLand(land.id)}
                     className={`flex flex-col items-center justify-center p-4 border-4 transition-all duration-200 ${selectedLand === land.id
-                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
-                        : 'border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500 hover:text-white'
+                      ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
+                      : 'border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500 hover:text-white'
                       }`}
                   >
                     <IconMapper name={land.icon} size={40} className="mb-3" />
@@ -128,8 +128,8 @@ export default function App() {
                       }
                     }}
                     className={`flex flex-col items-center justify-center p-4 border-4 transition-all duration-200 ${selectedManures.includes(man.id)
-                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
-                        : 'border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500 hover:text-white'
+                      ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
+                      : 'border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500 hover:text-white'
                       }`}
                   >
                     <IconMapper name={man.icon} size={40} className="mb-3" />
@@ -151,8 +151,8 @@ export default function App() {
                     key={crop.id}
                     onClick={() => setSelectedCrop(crop.id)}
                     className={`flex flex-col items-center justify-center p-4 border-4 transition-all duration-200 ${selectedCrop === crop.id
-                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
-                        : 'border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500 hover:text-white'
+                      ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
+                      : 'border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500 hover:text-white'
                       }`}
                   >
                     <IconMapper name={crop.icon} size={40} className="mb-3" />
@@ -168,10 +168,10 @@ export default function App() {
                 onClick={handleStart}
                 disabled={!selectedLand || selectedManures.length === 0 || !selectedCrop || isProcessing}
                 className={`relative overflow-hidden w-32 h-32 rounded-full font-bold uppercase tracking-widest text-lg flex flex-col items-center justify-center border-8 transition-all active:scale-95 ${!selectedLand || selectedManures.length === 0 || !selectedCrop
-                    ? 'bg-slate-700 border-slate-600 text-slate-500 cursor-not-allowed shadow-none'
-                    : isProcessing
-                      ? 'bg-amber-500 border-amber-600 text-amber-900 animate-pulse shadow-[0_0_30px_rgba(245,158,11,0.5)]'
-                      : 'bg-emerald-500 border-emerald-600 text-emerald-950 hover:bg-emerald-400 hover:border-emerald-500 shadow-[0_0_30px_rgba(16,185,129,0.5)]'
+                  ? 'bg-slate-700 border-slate-600 text-slate-500 cursor-not-allowed shadow-none'
+                  : isProcessing
+                    ? 'bg-amber-500 border-amber-600 text-amber-900 animate-pulse shadow-[0_0_30px_rgba(245,158,11,0.5)]'
+                    : 'bg-emerald-500 border-emerald-600 text-emerald-950 hover:bg-emerald-400 hover:border-emerald-500 shadow-[0_0_30px_rgba(16,185,129,0.5)]'
                   }`}
               >
                 <Play size={40} className={`mb-1 ${isProcessing ? 'animate-spin' : ''}`} fill="currentColor" />

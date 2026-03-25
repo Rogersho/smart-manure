@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Share2, User, Play, Square, Settings, Beef, Bird, PiggyBank, Wheat, Sprout, Activity, CheckCircle2, Factory, Map, Sun, Layers, Bug, Leaf, Apple, Cherry } from 'lucide-react';
+import { Share2, User, Play, Square, Settings, Beef, Bird, PiggyBank, Wheat, Sprout, Activity, CheckCircle2, Factory, Map, Sun, Layers, Bug, Leaf, Apple, Cherry, Globe } from 'lucide-react';
 import { LAND_DATABASE, MANURE_DATABASE, CROP_REQUIREMENTS, determineOptimalMix } from './manureData';
+import { translations } from './translations';
 
 // Helper to get component by icon string
 const IconMapper = ({ name, size = 24, className = "" }) => {
@@ -23,12 +24,15 @@ const IconMapper = ({ name, size = 24, className = "" }) => {
 };
 
 export default function App() {
+  const [lang, setLang] = useState('en'); // 'en' | 'rw'
   const [mode, setMode] = useState('individual'); // 'individual' | 'cooperative'
   const [selectedLand, setSelectedLand] = useState(null);
   const [selectedManures, setSelectedManures] = useState([]);
   const [selectedCrop, setSelectedCrop] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [result, setResult] = useState(null);
+
+  const t = translations[lang];
 
   const handleStart = () => {
     if (!selectedLand || selectedManures.length === 0 || !selectedCrop) return;
@@ -37,7 +41,7 @@ export default function App() {
 
     // Simulate machine processing time
     setTimeout(() => {
-      const mix = determineOptimalMix(selectedLand, selectedManures, selectedCrop);
+      const mix = determineOptimalMix(selectedLand, selectedManures, selectedCrop, lang);
       setResult(mix);
       setIsProcessing(false);
     }, 2000);
@@ -58,27 +62,45 @@ export default function App() {
               <Factory size={32} />
             </div>
             <div>
-              <h1 className="text-3xl font-black tracking-tight text-white uppercase">Smart Organic Rwanda</h1>
-              <h2 className="text-emerald-400 font-bold tracking-widest text-sm uppercase">Smart-Mix Bio-fertilizer</h2>
+              <h1 className="text-3xl font-black tracking-tight text-white uppercase">{t.title}</h1>
+              <h2 className="text-emerald-400 font-bold tracking-widest text-sm uppercase">{t.subtitle}</h2>
             </div>
           </div>
 
-          {/* Toggle Mode */}
-          <div className="mt-4 md:mt-0 flex items-center bg-slate-800 p-2 border-2 border-slate-700 w-full md:w-auto">
-            <button
-              onClick={() => setMode('individual')}
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 font-bold uppercase tracking-wider text-sm transition-colors ${mode === 'individual' ? 'bg-emerald-500 text-slate-900 border-2 border-emerald-400' : 'text-slate-400 hover:text-white border-2 border-transparent'}`}
-            >
-              <User size={18} />
-              Individual
-            </button>
-            <button
-              onClick={() => setMode('cooperative')}
-              className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 font-bold uppercase tracking-wider text-sm transition-colors ${mode === 'cooperative' ? 'bg-blue-500 text-slate-900 border-2 border-blue-400' : 'text-slate-400 hover:text-white border-2 border-transparent'}`}
-            >
-              <Share2 size={18} />
-              Cooperative
-            </button>
+          <div className="flex flex-col md:flex-row gap-4">
+            {/* Language Toggle */}
+            <div className="flex items-center bg-slate-800 p-1 border-2 border-slate-700">
+              <button
+                onClick={() => setLang('en')}
+                className={`px-4 py-2 font-bold text-xs uppercase transition-colors ${lang === 'en' ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLang('rw')}
+                className={`px-4 py-2 font-bold text-xs uppercase transition-colors ${lang === 'rw' ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`}
+              >
+                RW
+              </button>
+            </div>
+
+            {/* Toggle Mode */}
+            <div className="flex items-center bg-slate-800 p-2 border-2 border-slate-700 w-full md:w-auto">
+              <button
+                onClick={() => setMode('individual')}
+                className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 font-bold uppercase tracking-wider text-sm transition-colors ${mode === 'individual' ? 'bg-emerald-500 text-slate-900 border-2 border-emerald-400' : 'text-slate-400 hover:text-white border-2 border-transparent'}`}
+              >
+                <User size={18} />
+                {t.individual}
+              </button>
+              <button
+                onClick={() => setMode('cooperative')}
+                className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 font-bold uppercase tracking-wider text-sm transition-colors ${mode === 'cooperative' ? 'bg-blue-500 text-slate-900 border-2 border-blue-400' : 'text-slate-400 hover:text-white border-2 border-transparent'}`}
+              >
+                <Share2 size={18} />
+                {t.cooperative}
+              </button>
+            </div>
           </div>
         </header>
 
@@ -90,9 +112,9 @@ export default function App() {
             {/* Step 1: Select Land */}
             <section className="bg-slate-800 border-4 border-slate-700 p-6 relative">
               <div className="absolute top-0 left-0 bg-emerald-500 text-slate-900 px-3 py-1 font-bold flex items-center gap-2 uppercase text-xs tracking-widest -mt-4 ml-4">
-                Step 1 <CheckCircle2 size={14} />
+                {t.step1} <CheckCircle2 size={14} />
               </div>
-              <h3 className="text-xl font-bold mb-4 uppercase tracking-wide opacity-90 mt-2 text-slate-300">Select Land/Soil Type</h3>
+              <h3 className="text-xl font-bold mb-4 uppercase tracking-wide opacity-90 mt-2 text-slate-300">{t.step1Title}</h3>
               <div className="grid grid-cols-3 gap-4">
                 {Object.values(LAND_DATABASE).map(land => (
                   <button
@@ -104,7 +126,7 @@ export default function App() {
                       }`}
                   >
                     <IconMapper name={land.icon} size={40} className="mb-3" />
-                    <span className="font-bold uppercase text-xs tracking-wider">{land.name}</span>
+                    <span className="font-bold uppercase text-xs tracking-wider">{t.landTypes[land.id]}</span>
                   </button>
                 ))}
               </div>
@@ -113,9 +135,9 @@ export default function App() {
             {/* Step 2: Select Manure */}
             <section className="bg-slate-800 border-4 border-slate-700 p-6 relative">
               <div className="absolute top-0 left-0 bg-emerald-500 text-slate-900 px-3 py-1 font-bold flex items-center gap-2 uppercase text-xs tracking-widest -mt-4 ml-4">
-                Step 2 <CheckCircle2 size={14} />
+                {t.step2} <CheckCircle2 size={14} />
               </div>
-              <h3 className="text-xl font-bold mb-4 uppercase tracking-wide opacity-90 mt-2 text-slate-300">Select Waste Sources (Multiple)</h3>
+              <h3 className="text-xl font-bold mb-4 uppercase tracking-wide opacity-90 mt-2 text-slate-300">{t.step2Title}</h3>
               <div className="grid grid-cols-3 gap-4">
                 {Object.values(MANURE_DATABASE).map(man => (
                   <button
@@ -133,7 +155,7 @@ export default function App() {
                       }`}
                   >
                     <IconMapper name={man.icon} size={40} className="mb-3" />
-                    <span className="font-bold uppercase text-xs tracking-wider">{man.name}</span>
+                    <span className="font-bold uppercase text-xs tracking-wider">{t.manureTypes[man.id]}</span>
                   </button>
                 ))}
               </div>
@@ -142,9 +164,9 @@ export default function App() {
             {/* Step 3: Select Crop */}
             <section className="bg-slate-800 border-4 border-slate-700 p-6 relative">
               <div className="absolute top-0 left-0 bg-emerald-500 text-slate-900 px-3 py-1 font-bold flex items-center gap-2 uppercase text-xs tracking-widest -mt-4 ml-4">
-                Step 3 <CheckCircle2 size={14} />
+                {t.step3} <CheckCircle2 size={14} />
               </div>
-              <h3 className="text-xl font-bold mb-4 uppercase tracking-wide opacity-90 mt-2 text-slate-300">Select Target Crop</h3>
+              <h3 className="text-xl font-bold mb-4 uppercase tracking-wide opacity-90 mt-2 text-slate-300">{t.step3Title}</h3>
               <div className="grid grid-cols-2 gap-4">
                 {Object.values(CROP_REQUIREMENTS).map(crop => (
                   <button
@@ -156,7 +178,7 @@ export default function App() {
                       }`}
                   >
                     <IconMapper name={crop.icon} size={40} className="mb-3" />
-                    <span className="font-bold uppercase text-sm tracking-wider">{crop.name}</span>
+                    <span className="font-bold uppercase text-sm tracking-wider">{t.cropTypes[crop.id]}</span>
                   </button>
                 ))}
               </div>
@@ -175,7 +197,7 @@ export default function App() {
                   }`}
               >
                 <Play size={40} className={`mb-1 ${isProcessing ? 'animate-spin' : ''}`} fill="currentColor" />
-                {isProcessing ? 'MIXING' : 'START'}
+                {isProcessing ? t.mixing : t.start}
               </button>
 
               <button
@@ -183,7 +205,7 @@ export default function App() {
                 className="w-24 h-24 rounded-full font-bold uppercase tracking-widest text-sm flex flex-col items-center justify-center border-8 border-red-700 bg-red-600 text-red-100 hover:bg-red-500 hover:border-red-600 transition-all active:scale-95 shadow-[0_0_20px_rgba(220,38,38,0.5)]"
               >
                 <Square size={24} className="mb-1" fill="currentColor" />
-                STOP
+                {t.stop}
               </button>
             </section>
 
@@ -194,24 +216,24 @@ export default function App() {
 
             <section className="bg-slate-800 border-4 border-slate-700 p-8 relative flex-1 flex flex-col">
               <div className="absolute top-0 right-0 bg-slate-700 text-slate-300 px-4 py-2 font-bold flex items-center gap-2 uppercase text-xs tracking-widest border-b-4 border-l-4 border-slate-900">
-                <Settings size={14} className={isProcessing ? "animate-spin" : "opacity-50"} /> System Output
+                <Settings size={14} className={isProcessing ? "animate-spin" : "opacity-50"} /> {t.systemOutput}
               </div>
 
               <h3 className="text-2xl font-black mb-6 uppercase tracking-wider text-slate-400 border-b-4 border-slate-700 pb-4">
-                Designer Fertilizer Recipe
+                {t.recipeTitle}
               </h3>
 
               {!result && !isProcessing && (
                 <div className="flex-1 flex flex-col items-center justify-center text-slate-500 opacity-50">
                   <Activity size={80} className="mb-4" />
-                  <p className="text-lg uppercase tracking-widest font-bold text-center">Awaiting Input Parameters<br />Select land, source, and crop to begin</p>
+                  <p className="text-lg uppercase tracking-widest font-bold text-center">{t.awaitingInput}<br />{t.awaitingInputDesc}</p>
                 </div>
               )}
 
               {isProcessing && (
                 <div className="flex-1 flex flex-col items-center justify-center text-amber-500">
                   <Settings size={80} className="mb-6 animate-spin" />
-                  <p className="text-2xl font-black uppercase tracking-widest animate-pulse">Analyzing Bio-Samples...</p>
+                  <p className="text-2xl font-black uppercase tracking-widest animate-pulse">{t.analyzing}</p>
                   <div className="w-full max-w-md bg-slate-900 h-4 mt-8 border-2 border-slate-700 p-0.5">
                     <div className="bg-amber-500 h-full w-2/3 animate-[pulse_1s_ease-in-out_infinite]"></div>
                   </div>
@@ -224,7 +246,7 @@ export default function App() {
                   {/* Expected Yield Header */}
                   <div className="bg-emerald-500 text-emerald-950 p-6 border-4 border-emerald-600 mb-8 flex items-center justify-between shadow-sm">
                     <div>
-                      <h4 className="font-black uppercase tracking-widest text-sm mb-1 opacity-80">Predicted Yield Increase</h4>
+                      <h4 className="font-black uppercase tracking-widest text-sm mb-1 opacity-80">{t.predictedYield}</h4>
                       <p className="text-5xl font-black">{result.yieldIncrease}</p>
                     </div>
                     <Activity size={64} className="opacity-50" />
@@ -233,12 +255,12 @@ export default function App() {
                   {/* Recipe Formulation */}
                   <div className="grid grid-cols-2 gap-6 mb-8">
                     <div className="bg-slate-900 border-4 border-slate-700 p-6 text-center">
-                      <p className="text-slate-400 font-bold uppercase tracking-wider text-sm mb-2">Primary Base</p>
+                      <p className="text-slate-400 font-bold uppercase tracking-wider text-sm mb-2">{t.primaryBase}</p>
                       <p className="text-3xl font-black text-white">{result.mixRatio.base}%</p>
                       <p className="text-lg text-emerald-400 font-bold uppercase tracking-wide mt-1">{result.baseManure}</p>
                     </div>
                     <div className="bg-slate-900 border-4 border-slate-700 p-6 text-center">
-                      <p className="text-slate-400 font-bold uppercase tracking-wider text-sm mb-2">Supplement</p>
+                      <p className="text-slate-400 font-bold uppercase tracking-wider text-sm mb-2">{t.supplement}</p>
                       <p className="text-3xl font-black text-white">{result.mixRatio.supplementary}%</p>
                       <p className="text-lg text-amber-400 font-bold uppercase tracking-wide mt-1">{result.supplementaryManure}</p>
                     </div>
@@ -246,12 +268,12 @@ export default function App() {
 
                   {/* Nutrient Gap Analysis */}
                   <div className="mb-8">
-                    <h4 className="font-bold uppercase tracking-wider text-slate-400 mb-4 border-l-4 border-emerald-500 pl-3">Nutrient Gap Match (NPK)</h4>
+                    <h4 className="font-bold uppercase tracking-wider text-slate-400 mb-4 border-l-4 border-emerald-500 pl-3">{t.nutrientGap}</h4>
                     <div className="space-y-4">
                       {/* Nitrogen */}
                       <div>
                         <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-                          <span>Nitrogen (N)</span>
+                          <span>{t.nitrogen}</span>
                           <span className="text-emerald-400">{result.nutrientGap.n.toFixed(0)}%</span>
                         </div>
                         <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
@@ -261,7 +283,7 @@ export default function App() {
                       {/* Phosphorus */}
                       <div>
                         <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-                          <span>Phosphorus (P)</span>
+                          <span>{t.phosphorus}</span>
                           <span className="text-emerald-400">{result.nutrientGap.p.toFixed(0)}%</span>
                         </div>
                         <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
@@ -271,7 +293,7 @@ export default function App() {
                       {/* Potassium */}
                       <div>
                         <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-                          <span>Potassium (K)</span>
+                          <span>{t.potassium}</span>
                           <span className="text-emerald-400">{result.nutrientGap.k.toFixed(0)}%</span>
                         </div>
                         <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
@@ -283,7 +305,7 @@ export default function App() {
 
                   {/* Rationale Terminal */}
                   <div className="mt-auto bg-slate-900 border-4 border-slate-700 p-4 font-mono text-sm leading-relaxed pointer-events-none">
-                    <div className="text-emerald-500 font-bold mb-2">&gt;&gt; SYSTEM_REASONING_ENGINE</div>
+                    <div className="text-emerald-500 font-bold mb-2">&gt;&gt; {t.reasoningEngine}</div>
                     <p className="text-slate-300">{result.rationale}</p>
                     <div className="w-2 h-4 bg-emerald-500 animate-pulse mt-2 inline-block"></div>
                   </div>
@@ -299,3 +321,4 @@ export default function App() {
     </div>
   );
 }
+

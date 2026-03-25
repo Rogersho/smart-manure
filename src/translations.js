@@ -1,0 +1,108 @@
+export const translations = {
+  en: {
+    title: "Smart Organic Rwanda",
+    subtitle: "Smart-Mix Bio-fertilizer",
+    individual: "Individual",
+    cooperative: "Cooperative",
+    step1: "Step 1",
+    step1Title: "Select Land/Soil Type",
+    step2: "Step 2",
+    step2Title: "Select Waste Sources (Multiple)",
+    step3: "Step 3",
+    step3Title: "Select Target Crop",
+    start: "START",
+    mixing: "MIXING",
+    stop: "STOP",
+    systemOutput: "System Output",
+    recipeTitle: "Designer Fertilizer Recipe",
+    awaitingInput: "Awaiting Input Parameters",
+    awaitingInputDesc: "Select land, source, and crop to begin",
+    analyzing: "Analyzing Bio-Samples...",
+    predictedYield: "Predicted Yield Increase",
+    primaryBase: "Primary Base",
+    supplement: "Supplement",
+    nutrientGap: "Nutrient Gap Match (NPK)",
+    nitrogen: "Nitrogen (N)",
+    phosphorus: "Phosphorus (P)",
+    potassium: "Potassium (K)",
+    reasoningEngine: "SYSTEM_REASONING_ENGINE",
+    none: "None",
+    landTypes: {
+      loam: "Loam Soil",
+      sandy: "Sandy Soil",
+      clay: "Clay Soil"
+    },
+    manureTypes: {
+      cow: "Cow",
+      poultry: "Poultry",
+      pig: "Pig",
+      goat: "Goat",
+      compost: "Compost"
+    },
+    cropTypes: {
+      maize: "Maize",
+      potatoes: "Potatoes",
+      tomatoes: "Tomatoes",
+      beans: "Beans"
+    },
+    recommendations: {
+      nitrogen: "The combination of {land} and base sources ({manure}) lacks sufficient Nitrogen for {crop}. Supplementing with Nitrogen-rich Poultry manure is recommended.",
+      potassium: "The selected {land} and base sources ({manure}) are deficient in Potassium for {crop}. Adding Goat manure will provide the necessary Potassium boost.",
+      phosphorus: "{crop} requires more Phosphorus than what {land} and base sources ({manure}) provide. A Pig manure supplement will bridge the Phosphorus gap.",
+      perfect: "Excellent match! {land} and base sources ({manure}) provide a well-rounded nutrient profile for {crop}. A small Compost addition will ensure healthy soil microbiota."
+    }
+  },
+  rw: {
+    title: "Ubuhinzi Bw'ubwenge Rwanda",
+    subtitle: "Smart-Mix Ifumbire y'Imborera",
+    individual: "Umuntu ku giti cye",
+    cooperative: "Koperative",
+    step1: "Intambwe 1",
+    step1Title: "Hitamo Ubwoko bw'Ubutaka",
+    step2: "Intambwe 2",
+    step2Title: "Hitamo Inkomoko y'Ifumbire (Byinshi)",
+    step3: "Intambwe 3",
+    step3Title: "Hitamo Igihingwa",
+    start: "TANGIRA",
+    mixing: "IVANGA",
+    stop: "Hagarara",
+    systemOutput: "Ibisubizo by'Imashini",
+    recipeTitle: "Uburyo Ifumbire Ivangwa",
+    awaitingInput: "Hategerejwe amakuru",
+    awaitingInputDesc: "Hitamo ubutaka, ifumbire, n'igihingwa kugira ngo utangire",
+    analyzing: "Gusuzuma ibipimo...",
+    predictedYield: "Inyongera y'umusaruro yitezwe",
+    primaryBase: "Ifumbire y'ifatizo",
+    supplement: "Inyongeramusaruro",
+    nutrientGap: "Ingano y'intungamuhanzu (NPK)",
+    nitrogen: "Niyotrojen (N)",
+    phosphorus: "Fosifore (P)",
+    potassium: "Potasiyumu (K)",
+    reasoningEngine: "IMASHINI_ISESENGURA",
+    none: "Nta n'imwe",
+    landTypes: {
+      loam: "Inshaba",
+      sandy: "Umusenyi",
+      clay: "Ibumba"
+    },
+    manureTypes: {
+      cow: "Inka",
+      poultry: "Inkoko",
+      pig: "Ingurube",
+      goat: "Ihene",
+      compost: "Ikomposi"
+    },
+    cropTypes: {
+      maize: "Ikigori",
+      potatoes: "Ibirayi",
+      tomatoes: "Inyanya",
+      beans: "Ibishyimbo"
+    },
+    recommendations: {
+      nitrogen: "Uruvange rw'{land} n'ifumbire ({manure}) ntirufite Niyotrojeni ihagije ku {crop}. Turasaba kongeramo ifumbire y'inkoko ikungahaye kuri Niyotrojeni.",
+      potassium: "Ubutaka bwa {land} n'ifumbire ({manure}) bifite itungamuhanzu rya Potasiyumu nke ku {crop}. Kongeramo ifumbire y'ihene bizatuma haboneka Potasiyumu ihagije.",
+      phosphorus: "{crop} ikeneye Fosifore nyinshi kurusha izo {land} n'ifumbire ({manure}) bitanga. Ifumbire y'ingurube izafasha kuziba icyo cyuho cya Fosifore.",
+      perfect: "Nibyiza cyane! {land} n'ifumbire ({manure}) bifite intungamuhanzu zihagije ku {crop}. Kongeramo Ikomposi nkeya bizatuma ubutaka bugira ubuzima bwiza."
+    }
+  }
+};

@@ -110,22 +110,29 @@ export const CROP_REQUIREMENTS = {
   }
 };
 
-export const determineOptimalMix = (landId, manureId, cropId) => {
+export const determineOptimalMix = (landId, manureIds, cropId) => {
   const land = LAND_DATABASE[landId];
-  const manure = MANURE_DATABASE[manureId];
+  const manures = manureIds.map(id => MANURE_DATABASE[id]).filter(Boolean);
   const crop = CROP_REQUIREMENTS[cropId];
   
-  if (!land || !manure || !crop) return null;
+  if (!land || manures.length === 0 || !crop) return null;
 
   let recommendation = "";
   let supplementaryManureId = null;
   let mixRatio = { base: 100, supplementary: 0 };
   let yieldIncrease = "30-50%";
 
+  const baseManureNames = manures.map(m => m.name).join(' + ');
+
+  // Average the nutrients of the selected manures
+  const avgManureN = manures.reduce((sum, m) => sum + m.values.n, 0) / manures.length;
+  const avgManureP = manures.reduce((sum, m) => sum + m.values.p, 0) / manures.length;
+  const avgManureK = manures.reduce((sum, m) => sum + m.values.k, 0) / manures.length;
+
   // Determine standard supplement based on missing nutrients
-  const totalN = land.values.n + manure.values.n;
-  const totalP = land.values.p + manure.values.p;
-  const totalK = land.values.k + manure.values.k;
+  const totalN = land.values.n + avgManureN;
+  const totalP = land.values.p + avgManureP;
+  const totalK = land.values.k + avgManureK;
 
   const targetN = crop.values.n * 1.5; 
   const targetP = crop.values.p * 1.5;
@@ -133,25 +140,25 @@ export const determineOptimalMix = (landId, manureId, cropId) => {
 
   if (totalN < targetN) {
     supplementaryManureId = 'poultry'; // High N
-    recommendation = `The combination of ${land.name} and ${manure.name} lacks sufficient Nitrogen for ${crop.name}. Supplementing with Nitrogen-rich Poultry manure is recommended.`;
+    recommendation = `The combination of ${land.name} and base sources (${baseManureNames}) lacks sufficient Nitrogen for ${crop.name}. Supplementing with Nitrogen-rich Poultry manure is recommended.`;
     mixRatio = { base: 60, supplementary: 40 };
   } else if (totalK < targetK) {
     supplementaryManureId = 'goat'; // High K
-    recommendation = `The selected ${land.name} and ${manure.name} base is deficient in Potassium for ${crop.name}. Adding Goat manure will provide the necessary Potassium boost.`;
+    recommendation = `The selected ${land.name} and base sources (${baseManureNames}) are deficient in Potassium for ${crop.name}. Adding Goat manure will provide the necessary Potassium boost.`;
     mixRatio = { base: 70, supplementary: 30 };
   } else if (totalP < targetP) {
      supplementaryManureId = 'pig'; // High P
-     recommendation = `${crop.name} requires more Phosphorus than what ${land.name} and ${manure.name} provide. A Pig manure supplement will bridge the Phosphorus gap.`;
+     recommendation = `${crop.name} requires more Phosphorus than what ${land.name} and base sources (${baseManureNames}) provide. A Pig manure supplement will bridge the Phosphorus gap.`;
      mixRatio = { base: 65, supplementary: 35 };
   } else {
-    recommendation = `Excellent match! ${land.name} and ${manure.name} provide a well-rounded nutrient profile for ${crop.name}. A small Compost addition will ensure healthy soil microbiota.`;
+    recommendation = `Excellent match! ${land.name} and base sources (${baseManureNames}) provide a well-rounded nutrient profile for ${crop.name}. A small Compost addition will ensure healthy soil microbiota.`;
     supplementaryManureId = 'compost';
     mixRatio = { base: 85, supplementary: 15 };
     yieldIncrease = "45-60%";
   }
 
   return {
-    baseManure: manure.name,
+    baseManure: baseManureNames,
     supplementaryManure: supplementaryManureId ? MANURE_DATABASE[supplementaryManureId].name : "None",
     rationale: recommendation,
     mixRatio,

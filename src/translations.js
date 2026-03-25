@@ -28,6 +28,11 @@ export const translations = {
     calcium: "Calcium (Ca)",
     magnesium: "Magnesium (Mg)",
     sulfur: "Sulfur (S)",
+    iron: "Iron (Fe)",
+    zinc: "Zinc (Zn)",
+    manganese: "Manganese (Mn)",
+    copper: "Copper (Cu)",
+    boron: "Boron (B)",
     reasoningEngine: "SYSTEM_REASONING_ENGINE",
     none: "None",
     landTypes: {
@@ -84,6 +89,11 @@ export const translations = {
     calcium: "Kalsiyumu (Ca)",
     magnesium: "Mayineziyumu (Mg)",
     sulfur: "Sulifure (S)",
+    iron: "Ubutare (Fe)",
+    zinc: "Zinke (Zn)",
+    manganese: "Manganeze (Mn)",
+    copper: "Umuringa (Cu)",
+    boron: "Boro (B)",
     reasoningEngine: "IMASHINI_ISESENGURA",
     none: "Nta n'imwe",
     landTypes: {

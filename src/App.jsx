@@ -269,66 +269,53 @@ export default function App() {
                   {/* Nutrient Gap Analysis */}
                   <div className="mb-8">
                     <h4 className="font-bold uppercase tracking-wider text-slate-400 mb-4 border-l-4 border-emerald-500 pl-3">{t.nutrientGap}</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-                      {/* Nitrogen */}
-                      <div>
-                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-                          <span>{t.nitrogen}</span>
-                          <span className="text-emerald-400">{result.nutrientGap.n.toFixed(0)}%</span>
-                        </div>
-                        <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
-                          <div className="bg-emerald-500 h-full transition-all duration-1000 ease-out" style={{ width: `${result.nutrientGap.n}%` }}></div>
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
+                      {/* Primary */}
+                      <div className="space-y-4">
+                        <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.2em] border-b border-emerald-900/50 pb-1 mb-2">Primary</p>
+                        {['n', 'p', 'k'].map((nut, i) => (
+                          <div key={nut}>
+                            <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-1">
+                              <span>{t[nut === 'n' ? 'nitrogen' : nut === 'p' ? 'phosphorus' : 'potassium']}</span>
+                              <span className="text-emerald-400">{result.nutrientGap[nut].toFixed(0)}%</span>
+                            </div>
+                            <div className="w-full bg-slate-900 h-3 border border-slate-700 p-0.5">
+                              <div className="bg-emerald-500 h-full transition-all duration-1000 ease-out" style={{ width: `${result.nutrientGap[nut]}%`, transitionDelay: `${i * 100}ms` }}></div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      {/* Phosphorus */}
-                      <div>
-                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-                          <span>{t.phosphorus}</span>
-                          <span className="text-emerald-400">{result.nutrientGap.p.toFixed(0)}%</span>
-                        </div>
-                        <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
-                          <div className="bg-emerald-500 h-full transition-all duration-1000 ease-out delay-75" style={{ width: `${result.nutrientGap.p}%` }}></div>
-                        </div>
+
+                      {/* Secondary */}
+                      <div className="space-y-4">
+                        <p className="text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] border-b border-blue-900/50 pb-1 mb-2">Secondary</p>
+                        {['ca', 'mg', 's'].map((nut, i) => (
+                          <div key={nut}>
+                            <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-1">
+                              <span>{t[nut === 'ca' ? 'calcium' : nut === 'mg' ? 'magnesium' : 'sulfur']}</span>
+                              <span className="text-blue-400">{result.nutrientGap[nut].toFixed(0)}%</span>
+                            </div>
+                            <div className="w-full bg-slate-900 h-3 border border-slate-700 p-0.5">
+                              <div className="bg-blue-500 h-full transition-all duration-1000 ease-out" style={{ width: `${result.nutrientGap[nut]}%`, transitionDelay: `${(i + 3) * 100}ms` }}></div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      {/* Potassium */}
-                      <div>
-                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-                          <span>{t.potassium}</span>
-                          <span className="text-emerald-400">{result.nutrientGap.k.toFixed(0)}%</span>
-                        </div>
-                        <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
-                          <div className="bg-emerald-500 h-full transition-all duration-1000 ease-out delay-150" style={{ width: `${result.nutrientGap.k}%` }}></div>
-                        </div>
-                      </div>
-                      {/* Calcium */}
-                      <div>
-                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-                          <span>{t.calcium}</span>
-                          <span className="text-emerald-400">{result.nutrientGap.ca.toFixed(0)}%</span>
-                        </div>
-                        <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
-                          <div className="bg-blue-500 h-full transition-all duration-1000 ease-out delay-225" style={{ width: `${result.nutrientGap.ca}%` }}></div>
-                        </div>
-                      </div>
-                      {/* Magnesium */}
-                      <div>
-                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-                          <span>{t.magnesium}</span>
-                          <span className="text-emerald-400">{result.nutrientGap.mg.toFixed(0)}%</span>
-                        </div>
-                        <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
-                          <div className="bg-blue-500 h-full transition-all duration-1000 ease-out delay-300" style={{ width: `${result.nutrientGap.mg}%` }}></div>
-                        </div>
-                      </div>
-                      {/* Sulfur */}
-                      <div>
-                        <div className="flex justify-between text-xs font-bold uppercase tracking-widest mb-1">
-                          <span>{t.sulfur}</span>
-                          <span className="text-emerald-400">{result.nutrientGap.s.toFixed(0)}%</span>
-                        </div>
-                        <div className="w-full bg-slate-900 h-4 border-2 border-slate-700 p-0.5">
-                          <div className="bg-blue-500 h-full transition-all duration-1000 ease-out delay-375" style={{ width: `${result.nutrientGap.s}%` }}></div>
-                        </div>
+
+                      {/* Micro */}
+                      <div className="space-y-4">
+                        <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] border-b border-amber-900/50 pb-1 mb-2">Micro</p>
+                        {['fe', 'zn', 'mn', 'cu', 'b'].map((nut, i) => (
+                          <div key={nut} className="mb-2">
+                            <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-0.5">
+                              <span>{t[nut === 'fe' ? 'iron' : nut === 'zn' ? 'zinc' : nut === 'mn' ? 'manganese' : nut === 'cu' ? 'copper' : 'boron']}</span>
+                              <span className="text-amber-400">{result.nutrientGap[nut].toFixed(0)}%</span>
+                            </div>
+                            <div className="w-full bg-slate-900 h-2 border border-slate-700 p-0.5">
+                              <div className="bg-amber-500 h-full transition-all duration-1000 ease-out" style={{ width: `${result.nutrientGap[nut]}%`, transitionDelay: `${(i + 6) * 100}ms` }}></div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
